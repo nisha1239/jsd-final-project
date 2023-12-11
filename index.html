@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="#"><!-- no favicon error -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- First load the library file -->
+    <script src="js/axios.min.js"></script>
+    <!-- Second load your own code file that relies on the library -->
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+
+    <h1 class="centre">WEATHER</h1>
+
+    <form id="searchForm" class="centre">
+        <label for="searchText">Enter city name</label>
+        <input type="text" id="searchText">
+        <button>Search</button>
+    </form>
+
+    <div id="results" class="centre">
+        <h3>Current Details: </h3>
+    </div>
+
+    <div>
+        <button id="moreButton">more...</button>
+    </div>
+
+    <br></br>
+    <div id="details"></div>
+
+    <div>
+        <button id="backButton">Back</button>
+    </div>
+
+</body>
+
+</html>

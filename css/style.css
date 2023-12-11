@@ -1,0 +1,16 @@
+
+body {
+    background-color: skyblue;
+}
+
+.centre {
+    text-align: center;
+}
+
+.bold {
+    text-decoration-color: crimson;
+}
+
+/* .hide (
+    visibility: hidden;
+) */
