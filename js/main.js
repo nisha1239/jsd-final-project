@@ -17,7 +17,7 @@ searchForm.addEventListener('submit', function (ev) {
 
     console.log('User Input: ', searchText.value);
 
-    const url = 'https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385&include=minutely';
+    const url = `https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385&include=minutely`;
 
     axios.get(url)
         .then(function (response) {
@@ -25,7 +25,7 @@ searchForm.addEventListener('submit', function (ev) {
 
             const weather = response.data.data[0];
 
-            resultsDiv.innerHTML += "Temprature: " + weather.temp + ", Air Quality Index: " + weather.aqi + ", " + weather.weather.description;
+            resultsDiv.innerHTML    = "Temprature: " + weather.temp + ", Air Quality Index: " + weather.aqi + ", " + weather.weather.description;
 
             moreButton.style.display = 'inline';
 
@@ -42,7 +42,7 @@ searchForm.addEventListener('submit', function (ev) {
 moreButton.addEventListener('click', ev => {
     console.log('Clicked! ', ev.target);
 
-    const url = 'https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385&include=minutely';
+    const url = `https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385&include=minutely`;
 
     axios.get(url)
         .then(function (response) {
@@ -72,6 +72,8 @@ backButton.addEventListener('click', ev => {
     console.log('Clicked!', ev.target);
 
     searchText.value = '';
+    resultsDiv.innerHTML = '';
+    detailsDiv.innerHTML = '';
 }); // backButton.addEventListener() 
 
 
