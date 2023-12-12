@@ -130,7 +130,7 @@ forecastButton.addEventListener('click', (ev) => {
 
                 forecastDiv.innerHTML += `
                     <div>
-                        <p>Day ${n}:  ${day.datetime}, Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}</p>
+                        <p>DAY ${n}:  ${day.datetime}  , Maximum: ${day.app_max_temp} , Minimum: ${day.app_min_temp}</p>
                     </div>
                 `
                 n++;
