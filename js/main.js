@@ -108,19 +108,22 @@ forecastButton.addEventListener('click', (ev) => {
 
             forecastDiv.innerHTML = `
                 <div>
-                    <p> Daily Forecast: </p>
+                    <p> Daily Forecast for next 16 Days: </p>
                 </div>
             `
+            let n = 1;
 
             for (const day of days) {
                 // console.log(`Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}, Date: ${day.datetime}`);
 
+                // let n = 1;
 
                 forecastDiv.innerHTML += `
                     <div>
-                        <p>Date: ${day.datetime}, Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}</p>
+                        <p>Day ${n}:  ${day.datetime}, Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}</p>
                     </div>
                 `
+                n++;
             }
 
 
@@ -135,6 +138,7 @@ refreshButton.addEventListener('click', ev => {
     searchText.value = '';
     resultsDiv.innerHTML = '';
     detailsDiv.innerHTML = '';
+    forecastDiv.innerHTML = "";
 }); // backButton.addEventListener() 
 
 
