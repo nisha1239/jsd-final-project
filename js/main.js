@@ -19,6 +19,10 @@ searchForm.addEventListener('submit', function (ev) {
 
     console.log('User Input: ', searchText.value);
 
+    resultsDiv.innerHTML = '';
+    detailsDiv.innerHTML = '';
+    forecastDiv.innerHTML = "";
+
     const url = `https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385`;
 
     axios.get(url)
@@ -59,7 +63,7 @@ searchForm.addEventListener('submit', function (ev) {
         .catch(function (err) {
             console.log('ERROR loading Weather results', err);
 
-            resultsDiv.innerHTML = 'There was an error performing search. Please try again.';
+            resultsDiv.innerHTML = `${err} - There was an error performing search. Please try again.`;
         }); // .catch
 }); // searchForm.addEventListener('submit')
 
@@ -86,7 +90,13 @@ moreButton.addEventListener('click', ev => {
 
         }) // .then
         .catch(function (err) {
-            console.log('Error loading details. Please try again.');
+            console.log('Error loading details. Please try again.', err);
+
+            detailsDiv.innerHTML += `
+                    <div>
+                        <p>${err} - There was an error loading details. Please try again..</p>
+                    </div>
+                `
         }); // .catch
 
     // refreshButton.style.display = 'inline';
@@ -108,7 +118,7 @@ forecastButton.addEventListener('click', (ev) => {
 
             forecastDiv.innerHTML = `
                 <div>
-                    <p> Daily Forecast for next 16 Days: </p>
+                    <p> Daily Forecast for ${searchText.value} for next 16 Days: </p>
                 </div>
             `
             let n = 1;
@@ -124,12 +134,21 @@ forecastButton.addEventListener('click', (ev) => {
                     </div>
                 `
                 n++;
-            }
+            } // for loop
 
 
-        })
+        }) // .then fn
+        .catch(function (err) {
+            console.log('Error loading forecast');
 
-});
+            forecastDiv.innerHTML += `
+                    <div>
+                        <p>${err} - There was an error loading forecast. Please try again..</p>
+                    </div>
+                `
+        }); // .catch
+
+}); // forecastButton.addEventListener ()
 
 
 refreshButton.addEventListener('click', ev => {
