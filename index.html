@@ -11,32 +11,38 @@
     <script src="js/axios.min.js"></script>
     <!-- Second load your own code file that relies on the library -->
     <script src="js/main.js" defer></script>
+    <link rel=“stylesheet” type=“text/css” href=“https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css”>
 </head>
 
 <body>
 
-    <h1 class="centre">WEATHER</h1>
+    <div class="centre">
+        <h1>Weather</h1>
+        <h2 class="centre">Plan your Day!</h2>
+    </div>
+    <i class="wi wi-day-sunny"></i>
 
-    <form id="searchForm" class="centre">
-        <label for="searchText">Enter city name</label>
-        <input type="text" id="searchText">
-        <button>Search</button>
-    </form>
+    <div class="centre">
+        <form id="searchForm" class="centre">
+            <label for="searchText">Enter city name</label>
+            <input type="text" id="searchText">
+            <button>Search</button>
+        </form>
+    </div>
 
     <div id="results" class="centre">
-        <h3>Current Details: </h3>
     </div>
 
-    <div>
-        <button id="moreButton">more...</button>
+    <div class="centre">
+        <button id="moreButton">more Details...</button>
+        <button id="forecastButton">Forecast</button>
+        <button  id="refreshButton">Clear</button>
     </div>
 
-    <br></br>
-    <div id="details"></div>
+    <div class ="centre" id="details"></div>
 
-    <div>
-        <button id="backButton">Back</button>
-    </div>
+    <div class ="centre" id="forecast"></div>
+
 
 </body>
 

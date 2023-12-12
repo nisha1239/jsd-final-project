@@ -5,11 +5,13 @@ const searchForm = document.querySelector('#searchForm');
 const searchText = document.querySelector('#searchText');
 const resultsDiv = document.querySelector('#results');
 const detailsDiv = document.querySelector('#details');
+const forecastDiv = document.querySelector('#forecast');
 const moreButton = document.querySelector('#moreButton');
+const forecastButton = document.querySelector('#forecastButton');
 const backButton = document.querySelector('#backButton');
 
-moreButton.style.display = 'none';
-backButton.style.display = 'none';
+// moreButton.style.display = 'none';
+// refreshButton.style.display = 'none';
 
 searchForm.addEventListener('submit', function (ev) {
 
@@ -17,7 +19,7 @@ searchForm.addEventListener('submit', function (ev) {
 
     console.log('User Input: ', searchText.value);
 
-    const url = `https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385&include=minutely`;
+    const url = `https://api.weatherbit.io/v2.0/current?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385`;
 
     axios.get(url)
         .then(function (response) {
@@ -25,9 +27,31 @@ searchForm.addEventListener('submit', function (ev) {
 
             const weather = response.data.data[0];
 
-            resultsDiv.innerHTML    = "Temprature: " + weather.temp + ", Air Quality Index: " + weather.aqi + ", " + weather.weather.description;
+            resultsDiv.innerHTML += `
+            
+            <p>Weather @  ${weather.city_name}   <img src="https://cdn.weatherbit.io/static/img/icons/${weather.weather.icon}.png" />  ${weather.weather.description}</p>`
 
-            moreButton.style.display = 'inline';
+            resultsDiv.innerHTML += `
+            <div>
+                <p>Temperature: ${weather.temp}</p>
+                <p>Air Quality Index: ${weather.aqi}</p>
+                <p>UV: ${weather.uv}</p>
+                <p>POD: ${weather.pod}</p>
+                <p>Visibility: ${weather.vis}</p>
+                <p>Wind Direction: ${weather.wind_cdir_full}</p>
+                <p>Wind Speed: ${weather.wind_spd}</p>
+            </div>`
+
+            // "Temprature: " + weather.temp + ", Air Quality Index: " + weather.aqi + ", " + weather.weather.description + ", POD: " + weather.pod + ", UV: " + weather.uv + ", Visibility: " + weather.vis + ", Wind Speed: " + weather.wind_spd + ", Wind Direction: " + weather.wind_cdir_full;
+
+            // resultsDiv.innerHTML += `
+            // <div class="weather">
+            // <img src="https://cdn.weatherbit.io/static/img/icons/${weather.weather.icon}.png" />
+            // </div>`
+
+            // moreButton.style.display = 'inline'; // displays more information
+
+            // refreshButton.style.display = 'inline'; // clears everything and allows user to make a new search
 
 
         }) // .then
@@ -47,9 +71,9 @@ moreButton.addEventListener('click', ev => {
     axios.get(url)
         .then(function (response) {
 
-            const weather = response.data.data[0];
-            resultsDiv.innerHTML += '<hr></hr>'
-            resultsDiv.innerHTML += 'Sunrise: ' + weather.sunrise + ', Sunset: ' + weather.sunset;
+            // const weather = response.data.data[0];
+            // resultsDiv.innerHTML = '<hr></hr>'
+            // resultsDiv.innerHTML = 'Sunrise: ' + weather.sunrise + ', Sunset: ' + weather.sunset;
 
             for (const w of response.data.minutely) {
                 detailsDiv.innerHTML += `
@@ -65,10 +89,47 @@ moreButton.addEventListener('click', ev => {
             console.log('Error loading details. Please try again.');
         }); // .catch
 
-    backButton.style.display = 'block';
+    // refreshButton.style.display = 'inline';
 }); // moreButton.addEventListener ()
 
-backButton.addEventListener('click', ev => {
+forecastButton.addEventListener('click', (ev) => {
+
+    console.log('Clicked ', ev.target);
+
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchText.value}&key=dbad418422bc4af299222dabb3b83385`;
+
+    axios.get(url)
+
+
+        .then(function (response) {
+
+            // console.log(response);
+            const days = response.data.data;
+
+            forecastDiv.innerHTML = `
+                <div>
+                    <p> Daily Forecast: </p>
+                </div>
+            `
+
+            for (const day of days) {
+                // console.log(`Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}, Date: ${day.datetime}`);
+
+
+                forecastDiv.innerHTML += `
+                    <div>
+                        <p>Date: ${day.datetime}, Maximum: ${day.app_max_temp}, Minimum: ${day.app_min_temp}</p>
+                    </div>
+                `
+            }
+
+
+        })
+
+});
+
+
+refreshButton.addEventListener('click', ev => {
     console.log('Clicked!', ev.target);
 
     searchText.value = '';
